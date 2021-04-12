@@ -2,11 +2,13 @@ package com.example.krishna_4966.test;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.net.http.SslError;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.GeolocationPermissions;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -33,8 +35,13 @@ public class MainActivity extends AppCompatActivity {
                 Manifest.permission.ACCESS_COARSE_LOCATION
         },0);
 
+        //webView.setWebViewClient(new WebViewClient(){
+        //    public void onReceivedSslError(WebView view, SslErrorHandler handler,
+        //                                   SslError error) {
+        //        handler.proceed();
+        //    }
+        //});
         webView.setWebViewClient(new WebViewClient() {
-
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 webView.loadUrl(url);
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        webView.loadUrl("https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation");
+        webView.loadUrl("file:///android_asset/index.html");
+        //webView.loadUrl("https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation");
     }
 }
