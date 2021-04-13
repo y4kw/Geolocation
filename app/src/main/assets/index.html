@@ -8,20 +8,39 @@
 
 
 <p id="demo"></p>
+<br>
+<p id="demowatch"></p>
 
 <script>
 
 var x = document.getElementById("demo");
-x.innerHTML = "Geolocation";
+var w = document.getElementById("demowatch");
+var watchID;
+
+//x.innerHTML = "Geolocation";
 
 
 function getLocation() {
   if (navigator.geolocation) {
     //navigator.geolocation.getCurrentPosition(showPosition);
-    navigator.geolocation.getCurrentPosition(successCallback);
+    //navigator.geolocation.getCurrentPosition(successCallback);
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
     //navigator.geolocation.getCurrentPosition(
-    //successCallback, errorCallback, {enableHighAccuracy:true; timeout:6000; maximumAge:600000;}
+    //successCallback, errorCallback, {enableHighAccuracy:false; timeout:6000; maximumAge:0;}
     //);
+    watchID = navigator.geolocation.watchPosition(
+        function(position){
+            const now = new Date();
+            let gl_txt = "latitude: "         + position.coords.latitude + "<br>";
+              gl_txt +=  "longitude: "        + position.coords.longitude + "<br>";
+              gl_txt +=  "altitude: "         + position.coords.altitude + "<br>";
+              gl_txt +=  "accuracy: "         + position.coords.accuracy + "<br>";
+              gl_txt +=  "altitudeAccuracy: " + position.coords.altitudeAccuracy + "<br>";
+              gl_txt +=  "heading: "          + position.coords.heading + "<br>";
+              gl_txt +=  "speed: "            + position.coords.speed + "<br>";
+              gl_txt +=  "local time: "       + now.toLocaleTimeString() + "<br>";
+              w.innerHTML = gl_txt;
+        },null);
   } else {
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
@@ -43,6 +62,7 @@ function showPosition(position) {
   }
 
  function successCallback(position) {
+  const date = new Date();
   var gl_text = "latitude: "         + position.coords.latitude + "<br>";
     gl_text +=  "longitude: "        + position.coords.longitude + "<br>";
     gl_text +=  "altitude: "         + position.coords.altitude + "<br>";
@@ -50,6 +70,7 @@ function showPosition(position) {
     gl_text +=  "altitudeAccuracy: " + position.coords.altitudeAccuracy + "<br>";
     gl_text +=  "heading: "          + position.coords.heading + "<br>";
     gl_text +=  "speed: "            + position.coords.speed + "<br>";
+    gl_text +=  "local time: "       + date.toLocaleTimeString() + "<br>";
     x.innerHTML = gl_text;
 }
 
