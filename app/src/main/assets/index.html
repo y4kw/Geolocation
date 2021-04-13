@@ -10,19 +10,25 @@
 <p id="demo"></p>
 
 <script>
+
 var x = document.getElementById("demo");
+x.innerHTML = "Geolocation";
 
 
 function getLocation() {
   if (navigator.geolocation) {
     //navigator.geolocation.getCurrentPosition(showPosition);
-    navigator.geolocation.getCurrentPosition(
-        successCallback, errorCallback, {enableHighAccuracy:true; timeout:6000; maximumAge:600000;}
-        );
+    navigator.geolocation.getCurrentPosition(successCallbackhh);
+    //navigator.geolocation.getCurrentPosition(
+    //successCallback, errorCallback, {enableHighAccuracy:true; timeout:6000; maximumAge:600000;}
+    //);
   } else {
     x.innerHTML = "Geolocation is not supported by this browser.";
   }
 }
+
+getLocation();
+
 
 function showPosition(position) {
   x.innerHTML = "Latitude: " + position.coords.latitude +
@@ -34,6 +40,7 @@ function showPosition(position) {
   //for (var key in position.coords) {
   //x.innerHTML += key;
   //}
+  }
 
  function successCallback(position) {
   var gl_text = "latitude: "         + position.coords.latitude + "<br>";
